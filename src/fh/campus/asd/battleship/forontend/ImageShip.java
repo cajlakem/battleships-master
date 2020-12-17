@@ -122,7 +122,6 @@ public class ImageShip
 
         imageView.addEventHandler(MouseEvent.ANY, new EventHandler<MouseEvent>()
         {
-            @Override
             public void handle(MouseEvent event)
             {
                 //Nur wenn Schiff lock==false (unten bei lock erklärt)
