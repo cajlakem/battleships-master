@@ -1,11 +1,13 @@
 package fh.campus.asd.battleship.forontend;
 
 
+import fh.campus.asd.battleship.backend.models.ImageShip;
+import fh.campus.asd.battleship.backend.models.Player;
+import fh.campus.asd.battleship.backend.models.Ship;
 import fh.campus.asd.battleship.forontend.enums.Direction;
 import fh.campus.asd.battleship.helper.GUIConfig;
 import fh.campus.asd.battleship.helper.GUILabelsHelper;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -16,7 +18,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import org.apache.log4j.Logger;
@@ -28,8 +29,8 @@ import java.io.File;
 public class Main extends Application {
 
     private static transient final Logger log = Logger.getLogger(Application.class);
-    private Player player1 = new Player(true);
-    private Player player2 = new Player(true);
+    private Player player1 = new Player();
+    private Player player2 = new Player();
     private double pressedX, pressedY;
     private int gameround = 1;
     private boolean shipscomplete = false; //zu testzwecken auf true später muss auf false gestellt werden
@@ -308,7 +309,7 @@ public class Main extends Application {
 
                 if (a != null)
                 {
-                    if (player.area.setShip(a[0], a[1], imageship.getLength(), imageship.getDirection(), imageship.getDiffvectorx(), imageship.getDiffvectory()))
+                    if (player.getArea().setShip(a[0], a[1], imageship.getLength(), imageship.getDirection(), imageship.getDiffvectorx(), imageship.getDiffvectory()))
                     {
                         imageship.lock();
 
@@ -325,7 +326,7 @@ public class Main extends Application {
                 }
             }
         }
-        if (player.area.isFleetComplete())
+        if (player.getArea().isFleetComplete())
         {
             gameround++;
             if (player == player1)
@@ -344,7 +345,7 @@ public class Main extends Application {
 
 
             }
-            if (player1.area.isFleetComplete() && player2.area.isFleetComplete())
+            if (player1.getArea().isFleetComplete() && player2.getArea().isFleetComplete())
             {
                 activateMask();
             }
@@ -355,7 +356,7 @@ public class Main extends Application {
     private void attacks(int x, int y)
     {
         int a[];
-        if (!(player1.area.gameOver() || player2.area.gameOver()))
+        if (!(player1.getArea().gameOver() || player2.getArea().gameOver()))
         {
             if (shipscomplete)
             {
@@ -368,10 +369,10 @@ public class Main extends Application {
                     {
                         if (player1.attackPossible(a[0], a[1]))
                         {
-                            if (player2.area.attack(a[0], a[1]))
+                            if (player2.getArea().attack(a[0], a[1]))
                             {
                                 drawAttack(a[0], a[1], x, y, player2);
-                                player1.SaveAttack(a[0], a[1]);
+                                player1.saveAttack(a[0], a[1]);
                                 activateMask();
                                 bombplay.stop();
                                 bombplay.play();
@@ -379,7 +380,7 @@ public class Main extends Application {
                             } else
                             {
                                 drawMiss(x, y);
-                                player1.SaveAttack(a[0], a[1]);
+                                player1.saveAttack(a[0], a[1]);
                                 activateMask();
                                 indicate1.setVisible(false);
                                 indicate2.setVisible(true);
@@ -388,7 +389,7 @@ public class Main extends Application {
                             }
                         }
                     }
-                    if (player2.area.gameOver())
+                    if (player2.getArea().gameOver())
                     {
                         log.debug(GUILabelsHelper.PLAYER_ONE_WON);
                         deactivateMask();
@@ -413,10 +414,10 @@ public class Main extends Application {
                     {
                         if (player2.attackPossible(a[0], a[1]))
                         {
-                            if (player1.area.attack(a[0], a[1]))
+                            if (player1.getArea().attack(a[0], a[1]))
                             {
                                 drawAttack(a[0], a[1], x, y, player1);
-                                player2.SaveAttack(a[0], a[1]);
+                                player2.saveAttack(a[0], a[1]);
                                 activateMask();
                                 bombplay.stop();
                                 bombplay.play();
@@ -424,7 +425,7 @@ public class Main extends Application {
                             } else
                             {
                                 drawMiss(x, y);
-                                player2.SaveAttack(a[0], a[1]);
+                                player2.saveAttack(a[0], a[1]);
                                 activateMask();
                                 indicate1.setVisible(true);
                                 indicate2.setVisible(false);
@@ -434,7 +435,7 @@ public class Main extends Application {
 
                         }
                     }
-                    if (player1.area.gameOver())
+                    if (player1.getArea().gameOver())
                     {
                         log.debug(GUILabelsHelper.PLAYER_TWO_WON);
                         deactivateMask();
@@ -494,7 +495,7 @@ public class Main extends Application {
         Image image = new Image(GUILabelsHelper.SHIP_DESTROYED);
         /*Objekt ship wird entweder null oder ein Schiff zugewiesen (Siehe Klasse Ship, Methode isDestroyed). Wenn
         das Schiff zerstört ist, wird im switch case gefragt welche Länge und dementsprechen setzen wir das Schiff*/
-        Ship ship = player.area.isDestroyed(xx, yy);
+        Ship ship = player.getArea().isDestroyed(xx, yy);
 
         if (ship != null)
         {
@@ -546,7 +547,7 @@ public class Main extends Application {
     //Alle Schiffe beider Spieler sind gesetzt, dann true
     private void shipsComplete()
     {
-        if (player1.area.isFleetComplete() && player2.area.isFleetComplete())
+        if (player1.getArea().isFleetComplete() && player2.getArea().isFleetComplete())
         {
             this.shipscomplete = true;
         }
@@ -565,10 +566,10 @@ public class Main extends Application {
             imageShip1[i].reset();
 
         }
-        player1.area.removeAll();
-        player2.area.removeAll();
-        player1.Reset();
-        player2.Reset();
+        player1.getArea().removeAll();
+        player2.getArea().removeAll();
+        player1.reset();
+        player2.reset();
         gameround = 1;
         shipscomplete = false;
         buttonSaveShipsRight.setVisible(true);
@@ -586,8 +587,7 @@ public class Main extends Application {
     }
 
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         launch(args);
     }
 }

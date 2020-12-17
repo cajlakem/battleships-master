@@ -1,15 +1,14 @@
-package fh.campus.asd.battleship.forontend;
+package fh.campus.asd.battleship.backend.models;
 
+import fh.campus.asd.battleship.backend.models.Ship;
+import fh.campus.asd.battleship.backend.models.ShipPart;
 import fh.campus.asd.battleship.forontend.enums.Direction;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Field {
-    private List<Ship> fleet = new ArrayList<Ship>();
-    public List<Ship> getFleet() {
-        return fleet;
-    }
+    private List<Ship> fleet = new ArrayList<>();
 
     /*Überprüft für alle Schiffe und deren ShipParts(zweite For Schleife), ob sie auf den jeweils übergebenen x,y
     Koordinaten liegen.*/
@@ -49,23 +48,11 @@ public class Field {
             abhängig von der Richtung. Wenn das Schiff nach oben zeigt, müssen wir y-- machen, um den nächsten 40
             Pixelblock (== 1 ShipPart) zu überprüfen, ob da ein Schiff gesetzt werden darf. Das machen wir alles so
             lang, wie die Länge von dem Schiff, das wir setzen wollen. (For-Schleife)*/
-            switch (dir)
-            {
-                case UP:
-                    y--;
-                    break;
-
-                case RIGHT:
-                    x++;
-                    break;
-
-                case LEFT:
-                    x--;
-                    break;
-
-                case DOWN:
-                    y++;
-                    break;
+            switch (dir) {
+                case UP -> y--;
+                case RIGHT -> x++;
+                case LEFT -> x--;
+                case DOWN -> y++;
             }
         }
         return true;
@@ -192,7 +179,7 @@ Schiff zutreffen und checkIfDestroyed (Ship-Klasse) true liefert, returned es da
     /*Verwendung: reset Methode in der Main. Wenn reset aufgerufen wird, wird removeAll aktiviert, bedeutet, dass wir
     eine neue ArrayList fleet erstellen (die alte wird gelöscht quasi).*/
     public void removeAll() {
-        this.fleet = new ArrayList<Ship>(0);
+        this.fleet = new ArrayList<>(0);
     }
 
 

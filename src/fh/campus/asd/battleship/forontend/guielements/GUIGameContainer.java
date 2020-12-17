@@ -1,6 +1,6 @@
 package fh.campus.asd.battleship.forontend.guielements;
 
-import fh.campus.asd.battleship.forontend.ImageShip;
+import fh.campus.asd.battleship.backend.models.ImageShip;
 import fh.campus.asd.battleship.helper.GUIConfig;
 import fh.campus.asd.battleship.helper.GUILabelsHelper;
 import javafx.scene.control.Button;
