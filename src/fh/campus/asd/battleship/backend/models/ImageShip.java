@@ -1,26 +1,37 @@
-package fh.campus.asd.battleship.forontend;
+package fh.campus.asd.battleship.backend.models;
 
 import fh.campus.asd.battleship.forontend.enums.Direction;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
-import javafx.scene.input.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import org.apache.log4j.Logger;
+
 public class ImageShip
 {
 
-    private static transient final Logger log = Logger.getLogger(ImageShip.class);
-    private int x, y, length;
+    private static final Logger log = Logger.getLogger(ImageShip.class);
+    private int x;
+    private int y;
+    private final int length;
     private int rotate = 1;
-    private int beginX, beginY;
+    private final int beginX;
+    private final int beginY;
     /*Wichtige Vektoren: Sind dafür da, dass die Bilder und Schiffe gleich rotiert sind und richtig liegen. Da wir es
      händisch hinein schreiben müssen, dass die "digitalen" ships (nicht die Bilder) auch rotiert sind quasi. Noch
      bestätigen, ob das stimmt bitte!!*/
-    private int diffvectorx, diffvectory;
-    private double startX, startY, moveX, moveY, setX, setY, newX, newY;
+    private int diffvectorx;
+    private int diffvectory;
+    private double startX;
+    private double startY;
+    private double moveX;
+    private double moveY;
+    private double setX;
+    private double setY;
+    private double newX;
+    private double newY;
 
-    private ImageView imageView;
-    private Image image;
+    private final ImageView imageView;
     private Direction direction;
 
     private boolean disable = false;
@@ -83,21 +94,6 @@ public class ImageShip
         return imageView;
     }
 
-    public int getBeginX()
-    {
-        return beginX;
-    }
-
-    public int getBeginY()
-    {
-        return beginY;
-    }
-
-    public Image getImage()
-    {
-        return image;
-    }
-
 
     /*Konstruktor, mit dem wir die Schiffe in der Main (großer Block am Anfang) erstellen. Jedes Schiff hat die
     Eigenschaften und Funktionen, die hier drinnen stehen. z.B Es sind alle Schiffe automatisch nach rechts
@@ -109,7 +105,6 @@ public class ImageShip
         this.beginX = this.x;
         this.beginY = this.y;
         this.length = length;
-        this.image = image;
         this.direction = Direction.RIGHT;
 
 
@@ -120,61 +115,50 @@ public class ImageShip
         this.setDiffvectory(0);
 
 
-        imageView.addEventHandler(MouseEvent.ANY, new EventHandler<MouseEvent>()
-        {
-            public void handle(MouseEvent event)
-            {
-                //Nur wenn Schiff lock==false (unten bei lock erklärt)
-                if (!disable)
-                {
-                    if (event.getEventType() == MouseEvent.MOUSE_PRESSED && event.getButton().equals(MouseButton.PRIMARY))
-                    {
-                        //Koordinaten vom Mouseclick
-                        startX = event.getSceneX();
-                        startY = event.getSceneY();
+        imageView.addEventHandler(MouseEvent.ANY, event -> {
+            //Nur wenn Schiff lock==false (unten bei lock erklärt)
+            if (!disable) {
+                if (event.getEventType() == MouseEvent.MOUSE_PRESSED && event.getButton().equals(MouseButton.PRIMARY)) {
+                    //Koordinaten vom Mouseclick
+                    startX = event.getSceneX();
+                    startY = event.getSceneY();
 
-                        //Koordinaten vom Bild was geklickt wurde (schätze ich, bitte noch bestätigen!)
-                        moveX = ((ImageView) (event.getSource())).getTranslateX();
-                        moveY = ((ImageView) (event.getSource())).getTranslateY();
+                    //Koordinaten vom Bild was geklickt wurde (schätze ich, bitte noch bestätigen!)
+                    moveX = ((ImageView) (event.getSource())).getTranslateX();
+                    moveY = ((ImageView) (event.getSource())).getTranslateY();
 
-                    }
-                    if (event.getEventType() == MouseEvent.MOUSE_DRAGGED && event.getButton().equals(MouseButton.PRIMARY))
-                    {
-                        //Differenz der Koordinaten von der Maus, wo wir losgelassen haben und angefangen haben
-                        setX = event.getSceneX() - startX;
-                        setY = event.getSceneY() - startY;
+                }
+                if (event.getEventType() == MouseEvent.MOUSE_DRAGGED && event.getButton().equals(MouseButton.PRIMARY)) {
+                    //Differenz der Koordinaten von der Maus, wo wir losgelassen haben und angefangen haben
+                    setX = event.getSceneX() - startX;
+                    setY = event.getSceneY() - startY;
 
-                        //Die Differenz zwischen Bild Anfang und wie weit die maus gedragged wurde
-                        newX = moveX + setX;
-                        newY = moveY + setY;
+                    //Die Differenz zwischen Bild Anfang und wie weit die maus gedragged wurde
+                    newX = moveX + setX;
+                    newY = moveY + setY;
 
-                        /*wir runden es, damit es durch 40 teilbar ist (weil alle Felder durch 40 teilbar sind)*/
-                        int diffx = (int) newX % 40;
-                        newX = newX - diffx;
+                    /*wir runden es, damit es durch 40 teilbar ist (weil alle Felder durch 40 teilbar sind)*/
+                    int diffx = (int) newX % 40;
+                    newX = newX - diffx;
 
-                        int diffy = (int) newY % 40;
-                        newY = newY - diffy;
+                    int diffy = (int) newY % 40;
+                    newY = newY - diffy;
 
 
-                        ((ImageView) (event.getSource())).setTranslateX(newX);
-                        ((ImageView) (event.getSource())).setTranslateY(newY);
+                    ((ImageView) (event.getSource())).setTranslateX(newX);
+                    ((ImageView) (event.getSource())).setTranslateY(newY);
 
-                        /*Alle Faktoren werden berücksichtigt, damit die neuen Koordinaten stimmen, muss auch die
-                        errechnete differenz vom rotieren mit einbezogen werden.*/
-                        setX(beginX + getDiffvectorx() + (int) newX);
-                        setY(beginY + getDiffvectory() + (int) newY);
+                    /*Alle Faktoren werden berücksichtigt, damit die neuen Koordinaten stimmen, muss auch die
+                    errechnete differenz vom rotieren mit einbezogen werden.*/
+                    setX(beginX + getDiffvectorx() + (int) newX);
+                    setY(beginY + getDiffvectory() + (int) newY);
 
 
-                        int a[] = calculateXY(getX(), getY(), 440 + 40, 40 + 440 + 40 + 40, 440 + 440, 40 + 920);
-                        if (a != null)
-                        {
-                            log.debug("x= " + (a[0] + 1) + "y= " + (a[1] + 1));
-                        }
-                    }
-                    if (event.getEventType() == MouseEvent.MOUSE_CLICKED && event.getButton().equals(MouseButton.SECONDARY))
-                    {
-                        rotate();
-                    }
+                    int[] a = calculateXY(getX(), getY());
+                    log.debug("x= " + (a[0] + 1) + "y= " + (a[1] + 1));
+                }
+                if (event.getEventType() == MouseEvent.MOUSE_CLICKED && event.getButton().equals(MouseButton.SECONDARY)) {
+                    rotate();
                 }
             }
         });
@@ -247,21 +231,17 @@ public class ImageShip
           heißt es ja nicht, dass sich unsere ImageShips mitdrehen. Sind ja zwei verschiedene
           Entitäten. Immer Abhängig von welcher Richtung man dreht, ändern wir manuell dann die
           Direction mit den dementsprechenden Rechungen auch um.*/
-        switch (direction)
-        {
-            case UP:
+        switch (direction) {
+            case UP -> {
                 direction = Direction.LEFT;
-                if (getLength() % 2 == 1)
-                {
+                if (getLength() % 2 == 1) {
                     setX(getX() + 40 * (getLength() / 2));
                     setY(getY() - 40 * (getLength() / 2));
 
                     setDiffvectorx(getDiffvectorx() + 40 * (getLength() / 2));
                     setDiffvectory(getDiffvectory() - 40 * (getLength() / 2));
-                } else
-                {
-                    if (getLength() != 2)
-                    {
+                } else {
+                    if (getLength() != 2) {
                         setX(getX() + 40);
                         setY(getY() - 40);
 
@@ -269,28 +249,24 @@ public class ImageShip
                         setDiffvectory(getDiffvectory() - 40);
                     }
                 }
-                break;
-            case DOWN:
+            }
+            case DOWN -> {
                 direction = Direction.RIGHT;
-                if (getLength() % 2 == 1)
-                {
+                if (getLength() % 2 == 1) {
                     setX(getX() - 40 * (getLength() / 2));
                     setY(getY() + 40 * (getLength() / 2));
 
                     setDiffvectorx(getDiffvectorx() - 40 * (getLength() / 2));
                     setDiffvectory(getDiffvectory() + 40 * (getLength() / 2));
-                } else
-                {
-                    if (getLength() == 2)
-                    {
+                } else {
+                    if (getLength() == 2) {
                         setX(getX() - 40);
                         setY(getY() + 40);
 
                         setDiffvectorx(getDiffvectorx() - 40);
                         setDiffvectory(getDiffvectory() + 40);
 
-                    } else
-                    {
+                    } else {
                         setX(getX() - 2 * 40);
                         setY(getY() + 2 * 40);
 
@@ -298,25 +274,21 @@ public class ImageShip
                         setDiffvectory(getDiffvectory() + 40 * 2);
                     }
                 }
-                break;
-            case LEFT:
+            }
+            case LEFT -> {
                 direction = Direction.DOWN;
-                if (getLength() % 2 == 1)
-                {
+                if (getLength() % 2 == 1) {
                     setX(getX() - 40 * (getLength() / 2));
                     setY(getY() - 40 * (getLength() / 2));
 
                     setDiffvectorx(getDiffvectorx() - 40 * (getLength() / 2));
                     setDiffvectory(getDiffvectory() - 40 * (getLength() / 2));
-                } else
-                {
-                    if (getLength() == 2)
-                    {
+                } else {
+                    if (getLength() == 2) {
                         setY(getY() - 40);
 
                         setDiffvectory(getDiffvectory() - 40);
-                    } else
-                    {
+                    } else {
                         setX(getX() - 40);
                         setY(getY() - 2 * 40);
 
@@ -324,27 +296,23 @@ public class ImageShip
                         setDiffvectory(getDiffvectory() - 40 * 2);
                     }
                 }
-                break;
-            case RIGHT:
+            }
+            case RIGHT -> {
                 direction = Direction.UP;
-                if (getLength() % 2 == 1)
-                {
+                if (getLength() % 2 == 1) {
                     setX(getX() + 40 * (getLength() / 2));
                     setY(getY() + 40 * (getLength() / 2));
 
                     setDiffvectorx(getDiffvectorx() + 40 * (getLength() / 2));
                     setDiffvectory(getDiffvectory() + 40 * (getLength() / 2));
 
-                } else
-                {
-                    if (getLength() == 2)
-                    {
+                } else {
+                    if (getLength() == 2) {
                         setX(getX() + 40);
 
                         setDiffvectorx(getDiffvectorx() + 40);
 
-                    } else
-                    {
+                    } else {
                         setX(getX() + 2 * 40);
                         setY(getY() + 40);
 
@@ -352,13 +320,11 @@ public class ImageShip
                         setDiffvectory(getDiffvectory() + 40);
                     }
                 }
-                break;
+            }
         }
-        int[] a = calculateXY(getX(), getY(), 440 + 40, 40 + 440 + 40 + 40, 440 + 440, 40 + 920);
+        int[] a = calculateXY(getX(), getY());
         if (a != null)
-        {
             log.debug("x= " + (a[0] + 1) + "y= " + (a[1] + 1));
-        }
 
 
     }
@@ -376,19 +342,20 @@ public class ImageShip
 
 
     //Dient nur zum testen als Ausgabe
-    private int[] calculateXY(int x, int y, int p1x, int p1y, int p2x, int p2y)
+    private int[] calculateXY(int x, int y)
     {
-        int result[] = new int[2];
-        if (x >= p1x && x <= p2x && y >= p1y && y <= p2y)
+        int[] result = new int[2];
+        if (x >= 480 && x <= 880 && y >= 560 && y <= 960)
         {
             int vectorx, vectory;
-            vectorx = x - p1x;
-            vectory = y - p1y;
+            vectorx = x - 480;
+            vectory = y - 560;
             result[0] = vectorx / 40;
             result[1] = vectory / 40;
             return result;
         }
-        return null;
+
+        return result;
     }
 
 

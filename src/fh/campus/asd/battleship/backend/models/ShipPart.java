@@ -1,13 +1,13 @@
-package fh.campus.asd.battleship.forontend;
+package fh.campus.asd.battleship.backend.models;
 
 import org.apache.log4j.Logger;
 public class ShipPart
 {
     /*Jeder Teil vom Schiff (in unserem Fall ist jeder Teil genau 40pixel lang) hat die Eigenschaften von der Klasse
     ShipPart*/
-    private static transient final Logger log = Logger.getLogger(ShipPart.class);
-    private int x;
-    private int y;
+    private static final Logger log = Logger.getLogger(ShipPart.class);
+    private final int x;
+    private final int y;
     private boolean damage;
 
     public int getX()
@@ -27,7 +27,7 @@ public class ShipPart
         this.damage = false;
 
         /*Dient der Ausgabe für uns, zum testen*/
-       log.debug(" schiffteil an X= " + this.x + " Y =" + this.y + " schaden= " + this.damage);
+       log.debug(" schiffteil an X= " + this.x + " Y =" + this.y + " schaden= " + false);
     }
 
     /*ist dieser Teil vom Schiff zerstört?*/

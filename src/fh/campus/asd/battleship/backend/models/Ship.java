@@ -1,18 +1,20 @@
-package fh.campus.asd.battleship.forontend;
+package fh.campus.asd.battleship.backend.models;
 
 import fh.campus.asd.battleship.forontend.enums.Direction;
 import org.apache.log4j.Logger;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ship
 {
-    private static transient final Logger log = Logger.getLogger(Ship.class);
-    private ArrayList<ShipPart> shipparts = new ArrayList<ShipPart>();
-    private int length;
-    private int x;
-    private int y;
-    private Direction direction;
-    private int divx, divy;
+    private static final Logger log = Logger.getLogger(Ship.class);
+    private final ArrayList<ShipPart> shipparts = new ArrayList<>();
+    private final int length;
+    private final int x;
+    private final int y;
+    private final Direction direction;
+    private final int divx;
+    private final int divy;
 
     public int getX()
     {
@@ -44,7 +46,7 @@ public class Ship
         return direction;
     }
 
-    public ArrayList<ShipPart> getShipParts()
+    public List<ShipPart> getShipParts()
     {
         return shipparts;
     }
@@ -57,23 +59,11 @@ public class Ship
         for (int i = 0; i < length; i++)
         {
             shipparts.add(new ShipPart(x, y));
-            switch (directions)
-            {
-                case UP:
-                    y--;
-                    break;
-
-                case RIGHT:
-                    x++;
-                    break;
-
-                case LEFT:
-                    x--;
-                    break;
-
-                case DOWN:
-                    y++;
-                    break;
+            switch (directions) {
+                case UP -> y--;
+                case RIGHT -> x++;
+                case LEFT -> x--;
+                case DOWN -> y++;
             }
 
         }
