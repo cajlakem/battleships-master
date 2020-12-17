@@ -111,17 +111,12 @@ public class Main extends Application {
             battleshipcontainer.getChildren().add(imageShip1[i].getImageView());
         }
 
-        battleshipcontainer.addEventHandler(MouseEvent.ANY, new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
+        battleshipcontainer.addEventHandler(MouseEvent.ANY, event -> {
+            if (event.getEventType() == MouseEvent.MOUSE_PRESSED)
             {
-                if (event.getEventType() == MouseEvent.MOUSE_PRESSED)
-                {
-                    pressedX = event.getSceneX();
-                    pressedY = event.getSceneY();
-                    attacks((int) Math.round(pressedX), (int) Math.round(pressedY));
-                }
+                pressedX = event.getSceneX();
+                pressedY = event.getSceneY();
+                attacks((int) Math.round(pressedX), (int) Math.round(pressedY));
             }
         });
 
@@ -130,15 +125,10 @@ public class Main extends Application {
         buttonSaveShipsLeft.setLayoutY(500);
         buttonSaveShipsLeft.setPrefSize(120, 10);
 
-        buttonSaveShipsLeft.setOnAction(new EventHandler<ActionEvent>()
-                                        {
-                                            @Override
-                                            public void handle(ActionEvent event)
-                                            {
-                                                saveShips(imageShip0, player1, 440 + 40, 40 + 440 + 40 + 40, 440 + 440, 40 + 920);
-                                                shipsComplete();
-                                            }
-                                        }
+        buttonSaveShipsLeft.setOnAction(event -> {
+            saveShips(imageShip0, player1, 440 + 40, 40 + 440 + 40 + 40, 440 + 440, 40 + 920);
+            shipsComplete();
+        }
         );
 
 
@@ -146,14 +136,9 @@ public class Main extends Application {
         buttonSaveShipsRight.setLayoutY(500);
         buttonSaveShipsRight.setPrefSize(120, 10);
         buttonSaveShipsRight.setOnAction(
-                new EventHandler<ActionEvent>()
-                {
-                    @Override
-                    public void handle(ActionEvent event)
-                    {
-                        saveShips(imageShip1, player2, 2 * 440 + 40 + 40, 40 + 440 + 40 + 40, 440 + 440 + 40 + 440, 920 + 40);
-                        shipsComplete();
-                    }
+                event -> {
+                    saveShips(imageShip1, player2, 2 * 440 + 40 + 40, 40 + 440 + 40 + 40, 440 + 440 + 40 + 440, 920 + 40);
+                    shipsComplete();
                 }
         );
 
@@ -163,28 +148,14 @@ public class Main extends Application {
         seeShips1.setLayoutY(550);
         seeShips1.setPrefSize(120, 10);
         seeShips1.setOnAction(
-                new EventHandler<ActionEvent>()
-                {
-                    @Override
-                    public void handle(ActionEvent event)
-                    {
-                        changeMask();
-                    }
-                }
+                event -> changeMask()
         );
 
         seeShips2.setLayoutX(160);
         seeShips2.setLayoutY(550);
         seeShips2.setPrefSize(120, 10);
         seeShips2.setOnAction(
-                new EventHandler<ActionEvent>()
-                {
-                    @Override
-                    public void handle(ActionEvent event)
-                    {
-                        changeMask();
-                    }
-                }
+                event -> changeMask()
         );
 
         indicate1.setFill(Color.RED);
@@ -251,17 +222,11 @@ public class Main extends Application {
         reset.setLayoutY(10);
         reset.setPrefHeight(10);
 
-        reset.setOnAction(new EventHandler<ActionEvent>()
-        {
-
-            @Override
-            public void handle(ActionEvent event)
-            {
-                reset();
-                Scene scenel = new Scene(battleshipcontainer, 1800, 1000);
-                primaryStage.setScene(scenel);
-                primaryStage.show();
-            }
+        reset.setOnAction(event -> {
+            reset();
+            Scene scenel = new Scene(battleshipcontainer, 1800, 1000);
+            primaryStage.setScene(scenel);
+            primaryStage.show();
         });
         battleshipcontainer.getChildren().add(reset);
         newGame.setLayoutX(700);
@@ -269,18 +234,13 @@ public class Main extends Application {
         newGame.setMinSize(400, 150);
         Font font = new Font(30);
         newGame.setFont(font);
-        newGame.setOnAction(new EventHandler<ActionEvent>()
-                            {
-                                @Override
-                                public void handle(ActionEvent event)
-                                {
-                                    reset();
-                                    Scene scenel = new Scene(battleshipcontainer, 1800, 1000);
-                                    primaryStage.setScene(scenel);
-                                    primaryStage.show();
+        newGame.setOnAction(event -> {
+            reset();
+            Scene scenel = new Scene(battleshipcontainer, 1800, 1000);
+            primaryStage.setScene(scenel);
+            primaryStage.show();
 
-                                }
-                            }
+        }
         );
 
         battleshipcontainer.getChildren().add(newGame);
@@ -290,35 +250,23 @@ public class Main extends Application {
         exit.setLayoutY(500);
         exit.setMinSize(400, 150);
         exit.setFont(font);
-        exit.setOnAction(new EventHandler<ActionEvent>()
-                         {
-                             @Override
-                             public void handle(ActionEvent event)
-                             {
-                                 System.exit(0);
-                             }
-                         }
+        exit.setOnAction(event -> System.exit(0)
         );
 
 
         battleshipcontainer.getChildren().add(exit);
         cont.setOnAction(
-                new EventHandler<ActionEvent>()
-                {
-                    @Override
-                    public void handle(ActionEvent event)
-                    {
-                        reset();
-                        reset.setVisible(false);
-                        battleshipcontainer.getChildren().add(newGame);
-                        battleshipcontainer.getChildren().add(exit);
-                        startmenu.setVisible(true);
-                        newGame.setVisible(true);
-                        exit.setVisible(true);
-                        Scene scenel = new Scene(battleshipcontainer, 1800, 1000);
-                        primaryStage.setScene(scenel);
-                        primaryStage.show();
-                    }
+                event -> {
+                    reset();
+                    reset.setVisible(false);
+                    battleshipcontainer.getChildren().add(newGame);
+                    battleshipcontainer.getChildren().add(exit);
+                    startmenu.setVisible(true);
+                    newGame.setVisible(true);
+                    exit.setVisible(true);
+                    Scene scenel = new Scene(battleshipcontainer, 1800, 1000);
+                    primaryStage.setScene(scenel);
+                    primaryStage.show();
                 }
         );
 
