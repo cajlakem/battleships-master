@@ -1,4 +1,4 @@
-package fh.campus.asd.battleship.forontend;
+package fh.campus.asd.battleship.forontend.main;
 
 
 import fh.campus.asd.battleship.backend.models.ImageShip;
