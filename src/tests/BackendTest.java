@@ -13,7 +13,7 @@ public class BackendTest {
     Player player1 = new Player(true);
 
     @Test
-    void TestShipPart() {
+    void testShipPart() {
 
         ShipPart shipPart = new ShipPart(4,6);
 
@@ -30,7 +30,7 @@ public class BackendTest {
 
 
     @Test
-    void TestPlayer() {
+    void testPlayer() {
 
 
         player1.saveAttack(2,3);
@@ -48,7 +48,7 @@ public class BackendTest {
     }
 
     @Test
-    void TestShip() {
+    void testShip() {
 
         Direction direction1 = Direction.RIGHT;
         Ship ship1 = new Ship(3,4,10,direction1,4,6);
@@ -73,7 +73,7 @@ public class BackendTest {
     }
 
     @Test
-    void TestField() {
+    void testField() {
 
         Field field1 = player1.getArea();
 
