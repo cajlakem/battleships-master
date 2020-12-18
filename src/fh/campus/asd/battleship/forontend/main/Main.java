@@ -36,6 +36,7 @@ public class Main extends Application {
 
     private final Player player1 = new Player();
     private final Player player2 = new Player();
+
     private double pressedX;
     private double pressedY;
     private int gameround = 1;
@@ -59,7 +60,6 @@ public class Main extends Application {
     private final Rectangle indicate1 = new Rectangle(GUIConfig.indicate1V1, GUIConfig.indicate1V2, GUIConfig.indicate1V3, GUIConfig.indicate1V4);
     private final Rectangle indicate2 = new Rectangle(GUIConfig.indicate2V1, GUIConfig.indicate2V2, GUIConfig.indicate2V3, GUIConfig.indicate2V4);
 
-
     private final Media bomb = new Media(new File(GUILabelsHelper.BOMB_WAV).toURI().toString());
     private final MediaPlayer bombplay = new MediaPlayer(bomb);
     private final Media miss = new Media(new File(GUILabelsHelper.MISS_WAV).toURI().toString());
@@ -76,7 +76,6 @@ public class Main extends Application {
             new Image(GUILabelsHelper.RES_ONE_FIVE)
     };
 
-
     //Schiffe SPieler 1
     private final ImageShip[] imageShip1 = new ImageShip[]{
                 new ImageShip(1520, 640, 2, bships[0]),
@@ -90,7 +89,6 @@ public class Main extends Application {
                 new ImageShip(1520, 800, 4, bships[2]),
                 new ImageShip(1520, 880, 5, bships[3])
         };
-    
 
     //Schiffe Spieler 2
     private final ImageShip[] imageShip0 = new ImageShip[]{
@@ -108,11 +106,73 @@ public class Main extends Application {
     
     private Pane battleshipcontainer = new Pane();
 
-    private void drawGUI()
-    {
-        musicplay.setCycleCount(500);
-        musicplay.play();
+    private void drawGUI() {
+        initMusic();
+        initBattleshipContainer();
+        initButtons();
+        initSeeShips();
+        indicate1.setFill(Color.RED);
+        indicate2.setFill(Color.RED);
+        initBattleshipContainerPart2();
+        setAllVisible();
+        changeMask();
+    }
 
+    private void setAllVisible() {
+        startmenu.setVisible(true);
+        reset.setVisible(false);
+        maskleftfield.setVisible(false);
+        maskrightfield.setVisible(false);
+        seeShips1.setVisible(false);
+        seeShips2.setVisible(false);
+        indicate1.setVisible(false);
+        indicate2.setVisible(false);
+    }
+
+    private void initBattleshipContainerPart2() {
+        battleshipcontainer.getChildren().add(seeShips1);
+        battleshipcontainer.getChildren().add(seeShips2);
+        battleshipcontainer.getChildren().addAll(buttonSaveShipsLeft, buttonSaveShipsRight, maskleftfield, maskrightfield,
+                startmenu, indicate1, indicate2);
+    }
+
+    private void initSeeShips() {
+        seeShips1.setLayoutX(1520);
+        seeShips1.setLayoutY(550);
+        seeShips1.setPrefSize(120, 10);
+        seeShips1.setOnAction(
+                event -> changeMask()
+        );
+
+        seeShips2.setLayoutX(160);
+        seeShips2.setLayoutY(550);
+        seeShips2.setPrefSize(120, 10);
+        seeShips2.setOnAction(
+                event -> changeMask()
+        );
+    }
+
+    private void initButtons() {
+        buttonSaveShipsLeft.setLayoutX(160);
+        buttonSaveShipsLeft.setLayoutY(500);
+        buttonSaveShipsLeft.setPrefSize(120, 10);
+        buttonSaveShipsLeft.setOnAction(event -> {
+            saveShips(imageShip0, player1, 480, 440 + 440);
+            shipsComplete();
+        }
+        );
+        buttonSaveShipsRight.setLayoutX(1520);
+        buttonSaveShipsRight.setLayoutY(500);
+        buttonSaveShipsRight.setPrefSize(120, 10);
+        buttonSaveShipsRight.setOnAction(
+                event -> {
+                    saveShips(imageShip1, player2, 2 * 440 + 40 + 40, 440 + 440 + 40 + 440);
+                    shipsComplete();
+                }
+        );
+    }
+
+    private void initBattleshipContainer() {
         for (int i = 0; i < imageShip0.length; i++)
         {
             battleshipcontainer.getChildren().add(imageShip0[i].getImageView());
@@ -127,61 +187,11 @@ public class Main extends Application {
                 attacks((int) Math.round(pressedX), (int) Math.round(pressedY));
             }
         });
+    }
 
-
-        buttonSaveShipsLeft.setLayoutX(160);
-        buttonSaveShipsLeft.setLayoutY(500);
-        buttonSaveShipsLeft.setPrefSize(120, 10);
-
-        buttonSaveShipsLeft.setOnAction(event -> {
-            saveShips(imageShip0, player1, 480, 440 + 440);
-            shipsComplete();
-        }
-        );
-
-
-        buttonSaveShipsRight.setLayoutX(1520);
-        buttonSaveShipsRight.setLayoutY(500);
-        buttonSaveShipsRight.setPrefSize(120, 10);
-        buttonSaveShipsRight.setOnAction(
-                event -> {
-                    saveShips(imageShip1, player2, 2 * 440 + 40 + 40, 440 + 440 + 40 + 440);
-                    shipsComplete();
-                }
-        );
-
-
-        startmenu.setVisible(true);
-        seeShips1.setLayoutX(1520);
-        seeShips1.setLayoutY(550);
-        seeShips1.setPrefSize(120, 10);
-        seeShips1.setOnAction(
-                event -> changeMask()
-        );
-
-        seeShips2.setLayoutX(160);
-        seeShips2.setLayoutY(550);
-        seeShips2.setPrefSize(120, 10);
-        seeShips2.setOnAction(
-                event -> changeMask()
-        );
-
-        indicate1.setFill(Color.RED);
-        indicate2.setFill(Color.RED);
-
-        battleshipcontainer.getChildren().add(seeShips1);
-        battleshipcontainer.getChildren().add(seeShips2);
-        battleshipcontainer.getChildren().addAll(buttonSaveShipsLeft, buttonSaveShipsRight, maskleftfield, maskrightfield,
-                startmenu, indicate1, indicate2);
-
-        reset.setVisible(false);
-        maskleftfield.setVisible(false);
-        maskrightfield.setVisible(false);
-        seeShips1.setVisible(false);
-        seeShips2.setVisible(false);
-        indicate1.setVisible(false);
-        indicate2.setVisible(false);
-        changeMask();
+    private void initMusic() {
+        musicplay.setCycleCount(500);
+        musicplay.play();
     }
 
     private void activateMask()
