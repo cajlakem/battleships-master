@@ -28,7 +28,7 @@ import java.io.File;
 
 public class Main extends Application {
 
-    private static transient final Logger log = Logger.getLogger(Application.class);
+    private static final Logger log = Logger.getLogger(Application.class);
     private Player player1 = new Player();
     private Player player2 = new Player();
     private double pressedX, pressedY;

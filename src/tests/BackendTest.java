@@ -47,7 +47,7 @@ public class BackendTest {
 
     }
 
-    @Test
+    @org.junit.Test
     void TestShip() {
 
         Direction direction1 = Direction.RIGHT;
