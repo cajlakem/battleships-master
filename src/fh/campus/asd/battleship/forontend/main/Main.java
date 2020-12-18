@@ -29,32 +29,32 @@ import java.io.File;
 public class Main extends Application {
 
     private static final Logger log = Logger.getLogger(Application.class);
-    private Player player1 = new Player();
+    private final Player player1 = new Player();
     private Player player2 = new Player();
     private double pressedX, pressedY;
     private int gameround = 1;
     private boolean shipscomplete = false; //zu testzwecken auf true später muss auf false gestellt werden
 
-    private Button buttonSaveShipsLeft = new Button(GUILabelsHelper.SAVE_SHIPS_LABEL);
-    private Button buttonSaveShipsRight = new Button(GUILabelsHelper.SAVE_SHIPS_LABEL);
+    private final Button buttonSaveShipsLeft = new Button(GUILabelsHelper.SAVE_SHIPS_LABEL);
+    private final Button buttonSaveShipsRight = new Button(GUILabelsHelper.SAVE_SHIPS_LABEL);
     private Button newGame = new Button(GUILabelsHelper.NEW_GAME_NAME);
-    private Button exit = new Button(GUILabelsHelper.EXIT_GAMES_LABEL);
+    private final Button exit = new Button(GUILabelsHelper.EXIT_GAMES_LABEL);
     private Button reset = new Button(GUILabelsHelper.RESTART_GAMES_LABEL);
     private Button seeShips1 = new Button(GUILabelsHelper.SHOW_SHIPS_LABEL);
     private Button seeShips2 = new Button(GUILabelsHelper.SHOW_SHIPS_LABEL);
-    private Button cont = new Button(GUILabelsHelper.CONTINUE_LABEL);
+    private final Button cont = new Button(GUILabelsHelper.CONTINUE_LABEL);
 
     private ImageView startmenu = new ImageView(GUILabelsHelper.FILE_PATH_START);
     private ImageView wonleft = new ImageView(GUILabelsHelper.FILE_PATH_PLAYER1_WON);
     private ImageView wonright = new ImageView(GUILabelsHelper.FILE_PATH_PLAYER2_WON);
-    private ImageView maskleftfield = new ImageView(GUILabelsHelper.FILE_PATH_ISLAND_BELOW_LEFT);
-    private ImageView maskrightfield = new ImageView(GUILabelsHelper.FILE_PATH_ISLAND_BELOW_RIGHT);
+    private final ImageView maskleftfield = new ImageView(GUILabelsHelper.FILE_PATH_ISLAND_BELOW_LEFT);
+    private final ImageView maskrightfield = new ImageView(GUILabelsHelper.FILE_PATH_ISLAND_BELOW_RIGHT);
 
-    private Rectangle indicate1 = new Rectangle(GUIConfig.indicate1V1, GUIConfig.indicate1V2, GUIConfig.indicate1V3, GUIConfig.indicate1V4);
-    private Rectangle indicate2 = new Rectangle(GUIConfig.indicate2V1, GUIConfig.indicate2V2, GUIConfig.indicate2V3, GUIConfig.indicate2V4);
+    private final Rectangle indicate1 = new Rectangle(GUIConfig.indicate1V1, GUIConfig.indicate1V2, GUIConfig.indicate1V3, GUIConfig.indicate1V4);
+    private final Rectangle indicate2 = new Rectangle(GUIConfig.indicate2V1, GUIConfig.indicate2V2, GUIConfig.indicate2V3, GUIConfig.indicate2V4);
 
 
-    private Media bomb = new Media(new File(GUILabelsHelper.BOMB_WAV).toURI().toString());
+    private final Media bomb = new Media(new File(GUILabelsHelper.BOMB_WAV).toURI().toString());
     private MediaPlayer bombplay = new MediaPlayer(bomb);
     private Media miss = new Media(new File(GUILabelsHelper.MISS_WAV).toURI().toString());
     private MediaPlayer missplay = new MediaPlayer(miss);
