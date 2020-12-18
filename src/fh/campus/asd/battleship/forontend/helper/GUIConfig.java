@@ -1,4 +1,4 @@
-package fh.campus.asd.battleship.helper;
+package fh.campus.asd.battleship.forontend.helper;
 
 public final class GUIConfig {
     private GUIConfig() {}

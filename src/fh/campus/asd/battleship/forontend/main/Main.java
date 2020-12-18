@@ -1,12 +1,10 @@
 package fh.campus.asd.battleship.forontend.main;
-
-
 import fh.campus.asd.battleship.backend.models.ImageShip;
 import fh.campus.asd.battleship.backend.models.Player;
 import fh.campus.asd.battleship.backend.models.Ship;
 import fh.campus.asd.battleship.forontend.enums.Direction;
-import fh.campus.asd.battleship.helper.GUIConfig;
-import fh.campus.asd.battleship.helper.GUILabelsHelper;
+import fh.campus.asd.battleship.forontend.helper.GUIConfig;
+import fh.campus.asd.battleship.forontend.helper.GUILabelsHelper;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,8 +26,8 @@ import java.io.File;
 public class Main extends Application {
 
     private static final Logger log = Logger.getLogger(Main.class);
-    private final Player player1 = new Player();
-    private final Player player2 = new Player();
+    private final Player player1 = new Player(true);
+    private final Player player2 = new Player(true);
     private double pressedX;
     private double pressedY;
     private int gameround = 1;
@@ -43,16 +41,13 @@ public class Main extends Application {
     private final Button seeShips1 = new Button(GUILabelsHelper.SHOW_SHIPS_LABEL);
     private final Button seeShips2 = new Button(GUILabelsHelper.SHOW_SHIPS_LABEL);
     private final Button cont = new Button(GUILabelsHelper.CONTINUE_LABEL);
-
     private final ImageView startmenu = new ImageView(GUILabelsHelper.FILE_PATH_START);
     private final ImageView wonleft = new ImageView(GUILabelsHelper.FILE_PATH_PLAYER1_WON);
     private final ImageView wonright;
     private final ImageView maskleftfield = new ImageView(GUILabelsHelper.FILE_PATH_ISLAND_BELOW_LEFT);
     private final ImageView maskrightfield = new ImageView(GUILabelsHelper.FILE_PATH_ISLAND_BELOW_RIGHT);
-
     private final Rectangle indicate1 = new Rectangle(GUIConfig.indicate1V1, GUIConfig.indicate1V2, GUIConfig.indicate1V3, GUIConfig.indicate1V4);
     private final Rectangle indicate2 = new Rectangle(GUIConfig.indicate2V1, GUIConfig.indicate2V2, GUIConfig.indicate2V3, GUIConfig.indicate2V4);
-
 
     private final Media bomb = new Media(new File(GUILabelsHelper.BOMB_WAV).toURI().toString());
     private final MediaPlayer bombplay = new MediaPlayer(bomb);
@@ -131,9 +126,9 @@ public class Main extends Application {
         buttonSaveShipsLeft.setPrefSize(120, 10);
 
         buttonSaveShipsLeft.setOnAction(event -> {
-            saveShips(imageShip0, player1, 440 + 40, 440 + 440);
-            shipsComplete();
-        }
+                    saveShips(imageShip0, player1, 440 + 40, 440 + 440);
+                    shipsComplete();
+                }
         );
 
 
@@ -238,12 +233,12 @@ public class Main extends Application {
         Font font = new Font(30);
         newGame.setFont(font);
         newGame.setOnAction(event -> {
-            reset();
-            Scene scenel = new Scene(battleshipcontainer, 1800, 1000);
-            primaryStage.setScene(scenel);
-            primaryStage.show();
+                    reset();
+                    Scene scenel = new Scene(battleshipcontainer, 1800, 1000);
+                    primaryStage.setScene(scenel);
+                    primaryStage.show();
 
-        }
+                }
         );
 
         battleshipcontainer.getChildren().add(newGame);
@@ -583,3 +578,4 @@ public class Main extends Application {
         launch(args);
     }
 }
+

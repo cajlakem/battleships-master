@@ -1,4 +1,4 @@
-package fh.campus.asd.battleship.helper;
+package fh.campus.asd.battleship.forontend.helper;
 
 public final class GUILabelsHelper {
 
@@ -29,7 +29,8 @@ public final class GUILabelsHelper {
     public static final String RES_ONE_TWO = "file:res/1x2_Schiff_Horizontal_1_Fertig.png";
     public static final String RES_ONE_THREE = "file:res/1x3_Schiff_Horizontal_1_Fertig.png";
     public static final String RES_ONE_FOUR = "file:res/1x4_Schiff_Horizontal_1_Fertig.png";
-    public static final String RES_ONE_FIVE = "file:res/Insel_Unten_2.png";
+    public static final String RES_ONE_FIVE = "file:res/1x5_Schiff_Horizontal_1_Fertig.png";
+
     public static final String BACKGROUND_PIC = "file:res/BattleshipsBackground.png";
     public static final String WATER_MAKER = "file:res/Waterhitmarker.png";
     public static final String HIT_PNG = "file:res/Hit.png";

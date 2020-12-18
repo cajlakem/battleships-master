@@ -39,7 +39,7 @@ public class Player
         this.attackpositions = new ArrayList<>();
     }
 
-    public Player()
+    public Player(boolean b)
     {
     }
 

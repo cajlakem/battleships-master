@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 public class BackendTest {
 
-    Player player1 = new Player();
+    Player player1 = new Player(true);
 
     @Test
     void TestShipPart() {
