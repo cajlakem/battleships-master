@@ -1,4 +1,4 @@
-package fh.campus.asd.battleship.forontend.dataclass;
+package fh.campus.asd.battleship.backend.models;
 
 /*AttackPositions wird nur in der PlayerClass verwendet. Es hat nur den Konstruktor AttackPositions(x,y). Also
 wenn die Klasse aufgerufen wird, müssen immer die beiden Übergabeparameter verwendet werden*/

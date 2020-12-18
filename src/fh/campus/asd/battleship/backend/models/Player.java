@@ -1,6 +1,5 @@
 package fh.campus.asd.battleship.backend.models;
 
-import fh.campus.asd.battleship.forontend.dataclass.AttackPositions;
 import java.util.ArrayList;
 
 //In der Klasse sind alle Eigenschaften, die ein Player hat
@@ -38,13 +37,6 @@ public class Player
     {
         this.attackpositions = new ArrayList<>();
     }
-
-    public Player()
-    {
-    }
-
-
-    //Ab hier ist AI (ist nicht implementiert)
 
 
 }
