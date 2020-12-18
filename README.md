@@ -2,7 +2,7 @@ Battleships
 ----------
 This repo contains the project requirements of ASD Course Exercise-2.
 
-How to make use of the program
+How to setup and Run the Game [IntelliJ IDE Guide]
 ------------------------------
 This guide explains how to run this project in IntelliJ IDEA.
 
