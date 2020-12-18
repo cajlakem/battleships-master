@@ -384,7 +384,6 @@ public class Main extends Application {
                 a = calculateXY(x, y, 480, 80, 880, 880);
 
                 if (a.length > 0)
-                {
                     if (!player1.attackPossible(a[0], a[1])) {
                     } else {
                         if (player2.getArea().attack(a[0], a[1])) {
@@ -404,7 +403,6 @@ public class Main extends Application {
                             missplay.play();
                         }
                     }
-                }
                 if (player2.getArea().gameOver())
                 {
                     log.debug(GUILabelsHelper.PLAYER_ONE_WON);
@@ -538,15 +536,14 @@ public class Main extends Application {
             if (player == player1)
             {
                 x += 2 * 440 + 40 + 40;
-                y += 2 * 40;
 
             } else
             {
                 x += (440 + 40);
-                y += (2 * 40);
 
 
             }
+            y += 2 * 40;
 
             /*Schiff kreiert und zum Battleshipcontainer dazugehaut und lock==true, um es nicht bewegbar zu machen*/
             imageShipl = new ImageShip(x - ship.getDivx(), y - ship.getDivy(), ship.getLength(), image);

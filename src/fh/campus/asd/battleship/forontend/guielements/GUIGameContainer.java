@@ -43,7 +43,7 @@ public class GUIGameContainer {
     private Media winner = new Media(new File(GUILabelsHelper.WINNER_WAV).toURI().toString());
     private MediaPlayer winnerplay = new MediaPlayer(winner);
 
-    private Image bships[] = {
+    private Image[] bships = {
             new Image(GUILabelsHelper.RES_ONE_TWO),
             new Image(GUILabelsHelper.RES_ONE_THREE),
             new Image(GUILabelsHelper.RES_ONE_FOUR),
@@ -51,7 +51,7 @@ public class GUIGameContainer {
     };
 
     //Schiffe SPieler 1
-    ImageShip imageShip1[] = {
+    ImageShip[] imageShip1 = {
             new ImageShip(1520, 640, 2, bships[0]),
             new ImageShip(1520, 640, 2, bships[0]),
             new ImageShip(1520, 640, 2, bships[0]),
@@ -64,7 +64,7 @@ public class GUIGameContainer {
             new ImageShip(1520, 880, 5, bships[3])
     };
     //Schiffe Spieler 2
-    ImageShip imageShip0[] = {
+    ImageShip[] imageShip0 = {
             new ImageShip(1800 - 1520 - 3 * 40, 640, 2, bships[0]),
             new ImageShip(1800 - 1520 - 3 * 40, 640, 2, bships[0]),
             new ImageShip(1800 - 1520 - 3 * 40, 640, 2, bships[0]),

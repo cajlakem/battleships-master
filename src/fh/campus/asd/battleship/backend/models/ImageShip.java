@@ -323,7 +323,7 @@ public class ImageShip
             }
         }
         int[] a = calculateXY(getX(), getY());
-        if (a != null)
+        if (a.length > 0)
             log.debug("x= " + (a[0] + 1) + "y= " + (a[1] + 1));
 
 

@@ -4,8 +4,8 @@ import fh.campus.asd.battleship.forontend.enums.Direction;
 
 public class AISave
 {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     private Direction direction;
     private boolean water;
 
