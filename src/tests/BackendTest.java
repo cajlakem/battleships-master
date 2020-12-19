@@ -1,16 +1,19 @@
-package tests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import fh.campus.asd.battleship.backend.models.Field;
 import fh.campus.asd.battleship.backend.models.Player;
 import fh.campus.asd.battleship.backend.models.Ship;
 import fh.campus.asd.battleship.backend.models.ShipPart;
+import fh.campus.asd.battleship.backend.models.ImageShip;
 import fh.campus.asd.battleship.forontend.enums.Direction;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.junit.jupiter.api.Test;
 
 public class BackendTest {
 
     Player player1 = new Player();
+    Image img;
 
     @Test
     void TestShipPart() {
@@ -47,7 +50,7 @@ public class BackendTest {
 
     }
 
-    @org.junit.Test
+    @Test
     void TestShip() {
 
         Direction direction1 = Direction.RIGHT;
@@ -79,9 +82,15 @@ public class BackendTest {
 
         assertFalse(field1.isFleetComplete());
         assertTrue(field1.gameOver());
-
-
     }
 
+    @Test
+    void TestImgShip() {
+        ImageShip imgship = new ImageShip(1,2,3,img);
+        imgship.setDiffvectorx(1);
+        imgship.setDiffvectory(1);
+        assertEquals(1,imgship.getDiffvectorx());
+        assertEquals(1,imgship.getDiffvectory());
+    }
 
 }

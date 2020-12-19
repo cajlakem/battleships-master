@@ -14,7 +14,7 @@ public class ImageShip
     private int x;
     private int y;
     private final int length;
-    private int rotate = 1;
+    protected int rotate = 1;
     private final int beginX;
     private final int beginY;
     /*Wichtige Vektoren: Sind dafür da, dass die Bilder und Schiffe gleich rotiert sind und richtig liegen. Da wir es
@@ -37,12 +37,12 @@ public class ImageShip
     private boolean disable = false;
 
 
-    private void setDiffvectorx(int diffvectorx)
+    public void setDiffvectorx(int diffvectorx)
     {
         this.diffvectorx = diffvectorx;
     }
 
-    private void setDiffvectory(int diffvectory)
+    public void setDiffvectory(int diffvectory)
     {
         this.diffvectory = diffvectory;
     }
